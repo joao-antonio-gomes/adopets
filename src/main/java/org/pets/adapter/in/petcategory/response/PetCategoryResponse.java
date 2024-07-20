@@ -7,5 +7,6 @@ import java.io.Serializable;
 /**
  * DTO for {@link PetCategoryEntity}
  */
-public record PetCategoryResponse(Long id, String name) implements Serializable {
+public record PetCategoryResponse(Long id,
+                                  String name) implements Serializable {
 }

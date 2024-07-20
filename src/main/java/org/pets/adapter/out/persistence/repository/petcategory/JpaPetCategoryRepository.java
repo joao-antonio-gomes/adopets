@@ -1,4 +1,4 @@
-package org.pets.adapter.out.persistence.repository;
+package org.pets.adapter.out.persistence.repository.petcategory;
 
 import org.pets.adapter.out.persistence.entity.PetCategoryEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

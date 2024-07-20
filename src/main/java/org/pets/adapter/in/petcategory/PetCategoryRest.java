@@ -3,8 +3,9 @@ package org.pets.adapter.in.petcategory;
 import jakarta.validation.Valid;
 import org.pets.adapter.in.petcategory.request.PetCategoryRequest;
 import org.pets.adapter.in.petcategory.response.PetCategoryResponse;
-import org.pets.application.port.PetCategoryUseCasePort;
+import org.pets.application.petcategory.port.PetCategoryUseCase;
 import org.pets.domain.model.PetCategory;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,27 +18,32 @@ import java.util.List;
 @RequestMapping("/pets/categories")
 public class PetCategoryRest {
 
-    private final PetCategoryUseCasePort petCategoryUseCasePort;
+    private final PetCategoryUseCase petCategoryUseCase;
     private final PetCategoryMapper petCategoryMapper;
 
-    public PetCategoryRest(PetCategoryUseCasePort petCategoryUseCasePort,
-            PetCategoryMapper petCategoryMapper) {
-        this.petCategoryUseCasePort = petCategoryUseCasePort;
+    public PetCategoryRest(PetCategoryUseCase petCategoryUseCase,
+                           PetCategoryMapper petCategoryMapper) {
+        this.petCategoryUseCase = petCategoryUseCase;
         this.petCategoryMapper = petCategoryMapper;
     }
 
 
     @GetMapping
-    public List<PetCategoryResponse> getAllPetCategories() {
-        final List<PetCategory> allPetCategories = petCategoryUseCasePort.getAllPetCategories();
+    public ResponseEntity<List<PetCategoryResponse>> findAllPetCategories() {
+        final List<PetCategory> allPetCategories = petCategoryUseCase.findAllPetCategories();
 
-        return allPetCategories.stream()
-                               .map(petCategoryMapper::toResponse)
-                               .toList();
+        final List<PetCategoryResponse> petCategories = allPetCategories.stream()
+                                                                        .map(petCategoryMapper::toResponse)
+                                                                        .toList();
+
+        return ResponseEntity.ok(petCategories);
     }
 
     @PostMapping
-    public void createPetCategory(@RequestBody @Valid PetCategoryRequest petCategory) {
-        petCategoryUseCasePort.createPetCategory(petCategoryMapper.toDomain(petCategory));
+    public ResponseEntity<PetCategoryResponse> createPetCategory(@RequestBody @Valid PetCategoryRequest petCategory) {
+        final PetCategory petCategoryEntity =
+                petCategoryUseCase.createPetCategory(petCategoryMapper.toDomain(petCategory));
+
+        return ResponseEntity.ok(petCategoryMapper.toResponse(petCategoryEntity));
     }
 }
