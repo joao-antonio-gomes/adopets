@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static java.net.URI.create;
+
 @RestController
 @RequestMapping("/pets/categories")
 public class PetCategoryRest {
@@ -21,8 +23,7 @@ public class PetCategoryRest {
     private final PetCategoryUseCase petCategoryUseCase;
     private final PetCategoryMapper petCategoryMapper;
 
-    public PetCategoryRest(PetCategoryUseCase petCategoryUseCase,
-                           PetCategoryMapper petCategoryMapper) {
+    public PetCategoryRest(PetCategoryUseCase petCategoryUseCase, PetCategoryMapper petCategoryMapper) {
         this.petCategoryUseCase = petCategoryUseCase;
         this.petCategoryMapper = petCategoryMapper;
     }
@@ -41,9 +42,11 @@ public class PetCategoryRest {
 
     @PostMapping
     public ResponseEntity<PetCategoryResponse> createPetCategory(@RequestBody @Valid PetCategoryRequest petCategory) {
-        final PetCategory petCategoryEntity =
-                petCategoryUseCase.createPetCategory(petCategoryMapper.toDomain(petCategory));
+        final PetCategory petCategoryEntity = petCategoryUseCase.createPetCategory(petCategoryMapper.toDomain(
+                petCategory));
 
-        return ResponseEntity.ok(petCategoryMapper.toResponse(petCategoryEntity));
+        final var uri = "/pets/categories/" + petCategoryEntity.getId();
+        return ResponseEntity.created(create(uri))
+                             .body(petCategoryMapper.toResponse(petCategoryEntity));
     }
 }

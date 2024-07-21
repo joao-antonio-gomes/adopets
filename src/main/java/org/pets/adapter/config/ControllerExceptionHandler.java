@@ -27,20 +27,16 @@ public class ControllerExceptionHandler {
               String errorMessage = error.getDefaultMessage();
 
               if (errorMessage != null) {
-                  errors.putIfAbsent(fieldName,
-                                     List.of(errorMessage));
+                  errors.putIfAbsent(fieldName, List.of(errorMessage));
               } else {
-                  errors.putIfAbsent(fieldName,
-                                     List.of("Invalid value"));
+                  errors.putIfAbsent(fieldName, List.of("Invalid value"));
               }
           });
 
         final ApiExceptionDTO apiExceptionDTO = new ApiExceptionDTO("Invalid values",
                                                                     errors,
                                                                     HttpStatus.BAD_REQUEST.value());
-        return new ResponseEntity<>(apiExceptionDTO,
-                                    new HttpHeaders(),
-                                    HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(apiExceptionDTO, new HttpHeaders(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(BusinessException.class)
@@ -48,23 +44,19 @@ public class ControllerExceptionHandler {
         final ApiExceptionDTO apiExceptionDTO = new ApiExceptionDTO(ex.getMessage(),
                                                                     ex.getErrors(),
                                                                     HttpStatus.BAD_REQUEST.value());
-        return new ResponseEntity<>(apiExceptionDTO,
-                                    new HttpHeaders(),
-                                    HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(apiExceptionDTO, new HttpHeaders(), HttpStatus.BAD_REQUEST);
     }
 
     @Data
     public class ApiExceptionDTO {
         private final String error;
         private final Map<String, ?> errors;
-        private final Integer code;
+        private final Integer status;
 
-        public ApiExceptionDTO(String error,
-                               Map<String, ?> errors,
-                               Integer code) {
+        public ApiExceptionDTO(String error, Map<String, ?> errors, Integer status) {
             this.error = error;
             this.errors = errors;
-            this.code = code;
+            this.status = status;
         }
     }
 }
