@@ -4,19 +4,20 @@ import org.pets.adapter.in.pet.PetMapper;
 import org.pets.adapter.out.persistence.entity.PetEntity;
 import org.pets.application.pet.port.PetRepositoryPort;
 import org.pets.domain.model.Pet;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class JpaPetAdapter implements PetRepositoryPort {
+public class JpaPetRepositoryAdapter implements PetRepositoryPort {
 
     private final JpaPetRepository jpaPetRepository;
     private final PetMapper petMapper;
 
-    public JpaPetAdapter(JpaPetRepository jpaPetRepository,
-                         PetMapper petMapper) {
+    public JpaPetRepositoryAdapter(JpaPetRepository jpaPetRepository, PetMapper petMapper) {
         this.jpaPetRepository = jpaPetRepository;
         this.petMapper = petMapper;
     }
@@ -30,11 +31,10 @@ public class JpaPetAdapter implements PetRepositoryPort {
     }
 
     @Override
-    public List<Pet> findAll() {
-        final List<PetEntity> petEntities = jpaPetRepository.findAll();
-        return petEntities.stream()
-                          .map(petMapper::toModel)
-                          .toList();
+    public Page<Pet> findAllPaginated(PageRequest pageRequest) {
+        final Page<PetEntity> petPaged = jpaPetRepository.findAll(pageRequest);
+
+        return petPaged.map(petMapper::toModel);
     }
 
     @Override

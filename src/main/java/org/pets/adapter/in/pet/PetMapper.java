@@ -3,7 +3,7 @@ package org.pets.adapter.in.pet;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.pets.adapter.in.pet.request.PetRequest;
-import org.pets.adapter.in.pet.request.PetsListUpdateStatusRequest;
+import org.pets.adapter.in.pet.request.PetUpdateStatusRequest;
 import org.pets.adapter.in.pet.response.PetResponse;
 import org.pets.adapter.out.persistence.entity.PetEntity;
 import org.pets.domain.model.Pet;
@@ -20,5 +20,5 @@ public interface PetMapper {
 
     PetEntity toEntity(Pet pet);
 
-    Pet toModel(PetsListUpdateStatusRequest.PetUpdateStatusRequest petUpdateStatusRequest);
+    Pet toModel(PetUpdateStatusRequest petUpdateStatusRequest);
 }

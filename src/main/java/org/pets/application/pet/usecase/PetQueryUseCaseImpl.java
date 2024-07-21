@@ -3,9 +3,9 @@ package org.pets.application.pet.usecase;
 import org.pets.application.pet.port.PetQueryUseCase;
 import org.pets.application.pet.port.PetRepositoryPort;
 import org.pets.domain.model.Pet;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class PetQueryUseCaseImpl implements PetQueryUseCase {
@@ -17,7 +17,7 @@ public class PetQueryUseCaseImpl implements PetQueryUseCase {
     }
 
     @Override
-    public List<Pet> findAll() {
-        return petRepositoryPort.findAll();
+    public Page<Pet> findAllPaginated(PageRequest pageRequest) {
+        return petRepositoryPort.findAllPaginated(pageRequest);
     }
 }

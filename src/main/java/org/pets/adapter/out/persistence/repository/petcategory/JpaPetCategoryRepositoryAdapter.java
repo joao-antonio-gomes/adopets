@@ -41,4 +41,9 @@ public class JpaPetCategoryRepositoryAdapter implements PetCategoryRepositoryPor
         return jpaPetCategoryRepository.findById(id)
                                        .map(petCategoryMapper::toDomain);
     }
+
+    @Override
+    public boolean existsByName(String name) {
+        return jpaPetCategoryRepository.existsByName(name);
+    }
 }

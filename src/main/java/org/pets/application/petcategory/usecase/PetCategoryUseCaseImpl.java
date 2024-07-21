@@ -1,5 +1,6 @@
 package org.pets.application.petcategory.usecase;
 
+import org.pets.application.exception.BusinessException;
 import org.pets.application.petcategory.port.PetCategoryRepositoryPort;
 import org.pets.application.petcategory.port.PetCategoryUseCase;
 import org.pets.domain.model.PetCategory;
@@ -23,6 +24,10 @@ public class PetCategoryUseCaseImpl implements PetCategoryUseCase {
 
     @Override
     public PetCategory createPetCategory(PetCategory petCategory) {
+        if (petCategoryRepositoryPort.existsByName(petCategory.getName())) {
+            throw new BusinessException("Pet category already exists");
+        }
+
         return petCategoryRepositoryPort.createPetCategory(petCategory);
     }
 }

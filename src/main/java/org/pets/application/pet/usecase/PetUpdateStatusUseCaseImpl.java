@@ -40,10 +40,6 @@ public class PetUpdateStatusUseCaseImpl implements PetUpdateStatusUseCase {
         pets.forEach(pet -> {
             Optional<Pet> existingPet = petRepositoryPort.findById(pet.getId());
 
-            if (existingPet.isEmpty()) {
-                throw new BusinessException("Pet with id " + pet.getId() + " does not exist");
-            }
-
             Pet petToUpdate = existingPet.get();
             petToUpdate.setStatus(pet.getStatus());
             petsToUpdate.add(petToUpdate);

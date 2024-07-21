@@ -6,15 +6,12 @@ import fixtures.PetCategoryRequestFixture;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.pets.PetsApplication;
+import org.pets.adapter.in.BaseRestControllerTest;
 import org.pets.adapter.in.petcategory.request.PetCategoryRequest;
 import org.pets.application.petcategory.port.PetCategoryUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.containsString;
@@ -27,10 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = PetsApplication.class)
-@AutoConfigureMockMvc
-@TestPropertySource(locations = "classpath:application-integration-test.properties")
-class PetCategoryRestTest {
+class PetCategoryRestControllerTest extends BaseRestControllerTest {
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -55,7 +49,7 @@ class PetCategoryRestTest {
 
     @Test
     @DirtiesContext
-    void whenDontHavePetCategory_thenDontFindPetCategory() throws Exception {
+    void whenDontHavePetCategory_thenReturnEmptyList() throws Exception {
         mvc.perform(get("/pets/categories"))
            .andExpect(status().isOk())
            .andExpect(jsonPath("$", hasSize(0)));
@@ -84,5 +78,18 @@ class PetCategoryRestTest {
            .andExpect(status().isCreated())
            .andExpect(jsonPath("$.id", is(1)))
            .andExpect(jsonPath("$.name", is("Cats")));
+    }
+
+    @Test
+    @DirtiesContext
+    void givenExistingPetCategory_whenCreate_thenThrowError() throws Exception {
+        petCategoryUseCase.createPetCategory(PetCategoryFixture.DEFAULT);
+        final String requestJson = objectMapper.writeValueAsString(PetCategoryRequestFixture.VALID);
+        mvc.perform(post("/pets/categories").contentType(MediaType.APPLICATION_JSON)
+                                            .content(requestJson))
+           .andDo(print())
+           .andExpect(status().isBadRequest())
+           .andExpect(jsonPath("$.status", is(400)))
+           .andExpect(jsonPath("$.error", is("Pet category already exists")));
     }
 }

@@ -1,9 +1,9 @@
 package org.pets.application.pet.port;
 
 import org.pets.domain.model.Pet;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 public interface PetQueryUseCase {
-    List<Pet> findAll();
+    Page<Pet> findAllPaginated(PageRequest pageRequest);
 }

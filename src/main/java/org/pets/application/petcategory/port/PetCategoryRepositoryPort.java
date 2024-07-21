@@ -11,4 +11,6 @@ public interface PetCategoryRepositoryPort {
     PetCategory createPetCategory(PetCategory petCategory);
 
     Optional<PetCategory> findById(Long id);
+
+    boolean existsByName(String name);
 }

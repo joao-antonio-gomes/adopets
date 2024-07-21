@@ -18,12 +18,12 @@ import static java.net.URI.create;
 
 @RestController
 @RequestMapping("/pets/categories")
-public class PetCategoryRest {
+public class PetCategoryRestController {
 
     private final PetCategoryUseCase petCategoryUseCase;
     private final PetCategoryMapper petCategoryMapper;
 
-    public PetCategoryRest(PetCategoryUseCase petCategoryUseCase, PetCategoryMapper petCategoryMapper) {
+    public PetCategoryRestController(PetCategoryUseCase petCategoryUseCase, PetCategoryMapper petCategoryMapper) {
         this.petCategoryUseCase = petCategoryUseCase;
         this.petCategoryMapper = petCategoryMapper;
     }
