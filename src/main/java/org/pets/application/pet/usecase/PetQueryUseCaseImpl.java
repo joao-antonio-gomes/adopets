@@ -2,7 +2,7 @@ package org.pets.application.pet.usecase;
 
 import org.pets.application.pet.port.PetQueryUseCase;
 import org.pets.application.pet.port.PetRepositoryPort;
-import org.pets.domain.model.Pet;
+import org.pets.core.model.Pet;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;

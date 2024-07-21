@@ -1,6 +1,6 @@
 package org.pets.application.pet.port;
 
-import org.pets.domain.model.Pet;
+import org.pets.core.model.Pet;
 
 public interface PetCreationUseCase {
     Pet createPet(Pet model);

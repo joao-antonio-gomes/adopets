@@ -1,9 +1,7 @@
 package org.pets.application.pet.port;
 
-import org.pets.domain.model.Pet;
-
-import java.util.List;
+import org.pets.core.model.Pet;
 
 public interface PetUpdateStatusUseCase {
-    void updatePetStatus(List<Pet> pets);
+    void updatePetStatus(Pet pet);
 }

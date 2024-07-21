@@ -1,6 +1,6 @@
 package org.pets.application.petcategory.port;
 
-import org.pets.domain.model.PetCategory;
+import org.pets.core.model.PetCategory;
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
 package fixtures;
 
 import org.junit.jupiter.params.provider.Arguments;
-import org.pets.adapter.in.pet.request.PetRequest;
-import org.pets.domain.model.PetStatusAdoption;
+import org.pets.infrastructure.in.pet.request.PetRequest;
+import org.pets.core.model.PetStatusAdoption;
 
 import java.util.stream.Stream;
 

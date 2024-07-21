@@ -1,6 +1,6 @@
 package fixtures;
 
-import org.pets.domain.model.PetCategory;
+import org.pets.core.model.PetCategory;
 
 public interface PetCategoryFixture {
 

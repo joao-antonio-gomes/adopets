@@ -1,8 +1,8 @@
 package fixtures;
 
-import org.pets.domain.model.Pet;
-import org.pets.domain.model.PetCategory;
-import org.pets.domain.model.PetStatusAdoption;
+import org.pets.core.model.Pet;
+import org.pets.core.model.PetCategory;
+import org.pets.core.model.PetStatusAdoption;
 
 public interface PetFixture {
 

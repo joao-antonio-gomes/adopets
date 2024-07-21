@@ -1,7 +1,7 @@
 package fixtures;
 
 import org.junit.jupiter.params.provider.Arguments;
-import org.pets.adapter.in.petcategory.request.PetCategoryRequest;
+import org.pets.infrastructure.in.petcategory.request.PetCategoryRequest;
 
 import java.util.stream.Stream;
 

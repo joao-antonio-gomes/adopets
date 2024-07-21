@@ -3,8 +3,8 @@ package org.pets.application.pet.usecase;
 import org.pets.application.exception.BusinessException;
 import org.pets.application.pet.port.PetRepositoryPort;
 import org.pets.application.petcategory.port.PetCategoryRepositoryPort;
-import org.pets.domain.model.Pet;
-import org.pets.domain.model.PetCategory;
+import org.pets.core.model.Pet;
+import org.pets.core.model.PetCategory;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
