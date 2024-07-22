@@ -17,7 +17,7 @@ public class PetQueryUseCaseImpl implements PetQueryUseCase {
     }
 
     @Override
-    public Page<Pet> findAllPaginated(PageRequest pageRequest) {
-        return petRepositoryPort.findAllPaginated(pageRequest);
+    public Page<Pet> findAllPaginated(Long id, PageRequest pageRequest) {
+        return petRepositoryPort.findAllPaginated(id, pageRequest);
     }
 }

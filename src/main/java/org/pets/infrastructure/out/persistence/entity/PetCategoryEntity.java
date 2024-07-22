@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "pet_categories")
 public class PetCategoryEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 

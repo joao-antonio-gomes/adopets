@@ -30,8 +30,13 @@ public class JpaPetRepositoryAdapter implements PetRepositoryPort {
     }
 
     @Override
-    public Page<Pet> findAllPaginated(PageRequest pageRequest) {
-        final Page<PetEntity> petPaged = jpaPetRepository.findAll(pageRequest);
+    public Page<Pet> findAllPaginated(Long id, PageRequest pageRequest) {
+        Page<PetEntity> petPaged;
+        if (id == null) {
+            petPaged = jpaPetRepository.findAll(pageRequest);
+        } else {
+            petPaged = jpaPetRepository.findAllPaginatedById(id, pageRequest);
+        }
 
         return petPaged.map(petMapper::toModel);
     }

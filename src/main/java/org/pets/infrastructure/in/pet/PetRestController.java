@@ -44,8 +44,9 @@ public class PetRestController {
 
     @GetMapping
     public ResponseEntity<ApiResponse<PetResponse>> findAllPaginated(@RequestParam(defaultValue = "0") int page,
-                                                                     @RequestParam(defaultValue = "10") int pageSize) {
-        final Page<Pet> pets = petQueryUseCase.findAllPaginated(PageRequest.of(page, pageSize));
+                                                                     @RequestParam(defaultValue = "10") int pageSize,
+                                                                     @RequestParam(required = false) Long id) {
+        final Page<Pet> pets = petQueryUseCase.findAllPaginated(id, PageRequest.of(page, pageSize));
         final Page<PetResponse> petResponses = pets.map(petMapper::toResponse);
 
         final var apiResponse = new ApiResponse<>(petResponses.getContent(),

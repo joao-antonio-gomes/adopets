@@ -5,5 +5,5 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
 public interface PetQueryUseCase {
-    Page<Pet> findAllPaginated(PageRequest pageRequest);
+    Page<Pet> findAllPaginated(Long id, PageRequest pageRequest);
 }

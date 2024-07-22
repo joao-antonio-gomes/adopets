@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface PetRepositoryPort {
     Pet createPet(Pet pet);
 
-    Page<Pet> findAllPaginated(PageRequest pageRequest);
+    Page<Pet> findAllPaginated(Long id, PageRequest pageRequest);
 
     boolean existsById(Long id);
 
